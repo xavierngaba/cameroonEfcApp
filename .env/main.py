@@ -14,8 +14,12 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.lower() == "ping":
-        await message.channel.send("pong", delete_after=5)
+    if message.content.startswith("!del"):
+        number = int(message.content.split()[1])
+        messages = await message.channel.history(limit=number + 1).flatten()
+
+        for each_message in messages:
+            await each_message.delete()
 
 
 @client.event
@@ -24,4 +28,4 @@ async def on_member_join(member):
     await buvette_channel.send(content=f"Bienvenue sur le serveur {member.display_name}")
 
 
-client.run("OTU0MDM4MzA1MjQxMDY3NTIx.GXKl7v.8BhS3FRm9AwELxuWjZTC68NhfFuuk1Qugr8ESQ")
+client.run("OTU0MDM4MzA1MjQxMDY3NTIx.GU-zxN.aYlAoaaNtzDM5QxnVvomExi8e5Hz9VKXOFbIQs")
